@@ -4,6 +4,7 @@ require 'restclient'
 require 'report'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{FileUtils.pwd}/reports.db")
+DataMapper.auto_upgrade! # WARNINGS: data maybe be removed
 
 configure do
   set :pushr, ENV['SERVER_ADDRESS']
@@ -23,6 +24,8 @@ post "/report" do
     :stack => stack, 
     :created_at => Time.now).save
 
+  # Use Pushr to send notification
+  # More About Pushr: http://www.reality.hk/articles/2009/07/10/1082/
   RestClient.post(options.pushr, 
     :title => "[ERROR][ANDROID][#{options.environment}-#{package}-#{version}]", 
     :message => stack)
