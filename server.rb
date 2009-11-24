@@ -37,7 +37,7 @@ post "/report" do
   "OK"
 end
 
-post "/report/:id" do
+get "/report/:id" do
   id   = params[:id]
   report = Report.get(id.to_i)
   "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><p>#{report.stack}</p>"
