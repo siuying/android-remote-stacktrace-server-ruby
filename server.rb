@@ -23,7 +23,7 @@ post "/report" do
     halt "Missing required parameters!"
   end
 
-  Report.new(:version => version, 
+  report = Report.new(:version => version, 
     :package => package, 
     :stack => stack, 
     :created_at => Time.now).save
@@ -31,8 +31,14 @@ post "/report" do
   # Use Pushr to send notification
   # More About Pushr: http://www.reality.hk/articles/2009/07/10/1082/
   RestClient.post(options.pushr, 
-    :title => "[ERROR][ANDROID][#{options.environment}-#{package}-#{version}]", 
+    :title => "[ERROR][ANDROID][#{package}-#{version}] ##{report.id}", 
     :message => stack)
 
   "OK"
+end
+
+post "/report/:id" do
+  id   = params[:id]
+  report = Report.get(id.to_i)
+  "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><p>#{report.stack}</p>"
 end
