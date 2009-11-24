@@ -18,7 +18,14 @@ post "/report" do
     halt "Missing required parameters!"
   end
 
-  Report.new(:version => version, :package => package, :stack => stack, :created_at => Time.now).save
-  RestClient.post options.pushr, :title => "[EXCEPTION][ANDROID][#{package}-#{version}]", :message => stack
+  Report.new(:version => version, 
+    :package => package, 
+    :stack => stack, 
+    :created_at => Time.now).save
+
+  RestClient.post(options.pushr, 
+    :title => "[ERROR][ANDROID][#{options.environment}-#{package}-#{version}]", 
+    :message => stack)
+
   "OK"
 end
