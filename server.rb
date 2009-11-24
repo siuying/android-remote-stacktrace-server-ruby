@@ -40,5 +40,8 @@ end
 get "/report/:id" do
   id   = params[:id]
   report = Report.get(id.to_i)
-  "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><p>#{report.stack}</p>"
+
+  halt "not found" if report.nil?
+
+  "<h1>#{report.package_name} (#{report.package_version})</h1><h2>#{report.created_at}</h2><p>#{report.stacktrace}</p>"
 end
