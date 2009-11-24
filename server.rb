@@ -10,6 +10,10 @@ configure do
   set :pushr, ENV['SERVER_ADDRESS']
 end
 
+get "/" do
+  'see <a href="http://code.google.com/p/android-remote-stacktrace/">android-rmeote-stacktrace</a> for more details.'
+end
+
 post "/report" do
   stack   = params[:stacktrace]
   version = params[:package_version]
