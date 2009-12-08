@@ -11,7 +11,8 @@ configure do
 end
 
 get "/" do
-  'see <a href="http://code.google.com/p/android-remote-stacktrace/">android-remote-stacktrace</a> for more details.'
+  last = Report.first(:order => [:created_at.desc])
+  'see <a href="http://code.google.com/p/android-remote-stacktrace/">android-remote-stacktrace</a> for more details, or see the <a href="/report/' + last.id + '">last error</a>.'
 end
 
 post "/report" do
