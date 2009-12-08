@@ -44,5 +44,5 @@ get "/report/:id" do
 
   halt "not found" if report.nil?
 
-  "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><p>#{report.stack}</p>"
+  "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><hr/><pre>#{report.stack}</pre>"
 end
