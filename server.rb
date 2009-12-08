@@ -12,7 +12,7 @@ end
 
 get "/" do
   last = Report.first(:order => [:created_at.desc])
-  'see <a href="http://code.google.com/p/android-remote-stacktrace/">android-remote-stacktrace</a> for more details, or see the <a href="/report/' + last.id + '">last error</a>.'
+  'see <a href="http://code.google.com/p/android-remote-stacktrace/">android-remote-stacktrace</a> for more details, or see the <a href="/report/' + last.id.to_s + '">last error</a>.'
 end
 
 post "/report" do
