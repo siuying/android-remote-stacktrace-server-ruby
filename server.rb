@@ -26,7 +26,8 @@ post "/report" do
   report = Report.new(:version => version, 
     :package => package, 
     :stack => stack, 
-    :created_at => Time.now).save
+    :created_at => Time.now)
+  report.save
 
   # Use Pushr to send notification
   # More About Pushr: http://www.reality.hk/articles/2009/07/10/1082/
@@ -43,5 +44,5 @@ get "/report/:id" do
 
   halt "not found" if report.nil?
 
-  "<h1>#{report.package_name} (#{report.package_version})</h1><h2>#{report.created_at}</h2><p>#{report.stacktrace}</p>"
+  "<h1>#{report.package} (#{report.version})</h1><h2>#{report.created_at}</h2><p>#{report.stack}</p>"
 end
