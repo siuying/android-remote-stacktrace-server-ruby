@@ -4,7 +4,7 @@ require 'restclient'
 require 'report'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{FileUtils.pwd}/reports.db")
-Report.auto_migrate! # WARNINGS: data maybe be removed
+Report.auto_upgrade! # WARNINGS: data maybe be removed
 
 configure do
   set :pushr, ENV['SERVER_ADDRESS']
