@@ -18,14 +18,18 @@ post "/report" do
   stack   = params[:stacktrace]
   version = params[:package_version]
   package = params[:package_name]
-
+  phone = params[:phone_model]
+  sdk = params[:android_version]
+  
   if stack.nil? || version.nil? || package.nil?
     halt "Missing required parameters!"
   end
 
   report = Report.new(:version => version, 
     :package => package, 
-    :stack => stack, 
+    :stack => stack,
+    :phone => phone,
+    :sdk => sdk,
     :created_at => Time.now)
   report.save
 
